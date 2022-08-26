@@ -1,9 +1,13 @@
 module Main exposing (..)
 
 import Browser exposing (Document)
-import CSSTest
-import Html exposing (Html, h1, span, text)
-import Html.Attributes exposing (class)
+import Bulma.CDN exposing (..)
+import Bulma.Columns exposing (..)
+import Bulma.Components exposing (..)
+import Bulma.Elements exposing (..)
+import Bulma.Layout exposing (..)
+import Bulma.Modifiers exposing (..)
+import Html exposing (div, h1, p, text)
 import Task
 import Time
 
@@ -47,7 +51,20 @@ view model =
         second =
             String.fromInt (Time.toSecond model.zone model.time)
     in
-    Document "Home" [ CSSTest.view (CSSTest.Model hour minute second) ]
+    Document "Home"
+        [ div []
+            [ stylesheet
+            , hero (HeroModifiers False Large Default)
+                []
+                [ heroBody []
+                    [ container []
+                        [ h1 [] [ text "Roan Urquhart" ]
+                        , p [] [ text (hour ++ ":" ++ minute ++ ":" ++ second) ]
+                        ]
+                    ]
+                ]
+            ]
+        ]
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
