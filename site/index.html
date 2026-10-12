@@ -4,119 +4,67 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light">
-    <meta name="theme-color" content="#f4efe3">
+    <meta name="theme-color" content="#efe5cb">
     <meta name="description" content="Roan Urquhart: education, experience, skills and projects.">
     <title>Roan Urquhart</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://roanurquhart.com/">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Yellowtail&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script>document.documentElement.classList.add("js");</script>
     <script src="app.js" defer></script>
   </head>
   <body>
     <svg class="sprite" aria-hidden="true">
       <defs>
-        <filter id="paint" x="-5%" y="-5%" width="110%" height="110%">
-          <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="noise"/>
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5"/>
-        </filter>
-        <linearGradient id="fade-grad" gradientUnits="userSpaceOnUse" x1="0" y1="-14" x2="0" y2="220">
-          <stop offset="0" stop-color="#fff"/>
-          <stop offset="0.6" stop-color="#fff" stop-opacity="0.9"/>
-          <stop offset="1" stop-color="#000"/>
-        </linearGradient>
-        <mask id="scene-fade" maskUnits="userSpaceOnUse" x="-400" y="-400" width="1000" height="1000">
-          <rect x="-400" y="-400" width="1000" height="1000" fill="url(#fade-grad)"/>
-        </mask>
+        <!-- Engraver's hatching, used inside the logos -->
+        <pattern id="hatch" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+          <rect width="3.2" height="3.2" fill="#f6f0df"/>
+          <path d="M1.6 0V3.2" stroke="#26201a" stroke-width="1.1"/>
+        </pattern>
       </defs>
 
-      <!-- Scenes: painted backgrounds, oversized so they fill any ad shape, fading into the paper below the waist -->
-      <g id="scene-city" mask="url(#scene-fade)">
-        <rect x="-400" y="-400" width="1000" height="1000" fill="#d9bd92"/>
-        <rect x="-400" y="-400" width="1000" height="260" fill="#e7d6b5"/>
-        <path fill="#8a929b" d="M-400 120H-390V96H-378V120H-370V84H-356V120H-348V100H-336V76H-322V120H-312V92H-300V120H-288V70H-272V120H-262V96H-250V120H-240V84H-226V120H-214V100H-200V120H-180V220H-400Z"/>
-        <path fill="#8a929b" d="M120 120H130V96H142V120H150V84H164V120H176V100H190V120H720V220H120Z"/>
-        <rect x="-400" y="170" width="1000" height="260" fill="#a88a5e"/>
-      </g>
-      <g id="scene-harbour" mask="url(#scene-fade)">
-        <rect x="-400" y="-400" width="1000" height="1000" fill="#c9d2d6"/>
-        <rect x="-400" y="118" width="1000" height="200" fill="#2b3a55" opacity="0.55"/>
-        <path fill="#f4efe3" d="M30 118V40L56 118Z"/>
-        <path fill="#6d7883" d="M60 118V64L74 118Z"/>
-        <rect x="-400" y="116" width="1000" height="2" fill="#4a4339" opacity="0.5"/>
-      </g>
-      <g id="scene-window" mask="url(#scene-fade)">
-        <rect x="-400" y="-400" width="1000" height="1000" fill="#d2b48a"/>
-        <rect x="18" y="16" width="84" height="130" fill="#ebe3d1" stroke="#4a4339" stroke-width="1.5"/>
-        <path fill="none" stroke="#4a4339" stroke-width="1.5" d="M60 16V146M18 80H102"/>
-        <rect x="-400" y="170" width="1000" height="260" fill="#6b4a2e" opacity="0.45"/>
-      </g>
-      <g id="scene-park" mask="url(#scene-fade)">
-        <rect x="-400" y="-400" width="1000" height="1000" fill="#dfe5e1"/>
-        <rect x="-400" y="150" width="1000" height="300" fill="#c9a86f"/>
-        <ellipse cx="30" cy="172" rx="40" ry="16" fill="#7b7a4a"/>
-        <rect x="92" y="40" width="2.5" height="130" fill="#2b2620"/>
-        <circle cx="93" cy="36" r="6" fill="#ebe3d1"/>
-      </g>
-      <g id="scene-blank">
-        <rect x="-400" y="-400" width="1000" height="1000" fill="#ebe3d1" opacity="0"/>
-      </g>
+      <!-- Black-and-white trademark seal for Corvus Insurance -->
+      <symbol id="logo-corvus" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="57" fill="#f6f0df" stroke="#26201a" stroke-width="4"/>
+        <circle cx="60" cy="60" r="51" fill="none" stroke="#26201a" stroke-width="1.2"/>
+        <circle cx="60" cy="48" r="28" fill="url(#hatch)" stroke="#26201a" stroke-width="1.5"/>
+        <text x="60" y="61" text-anchor="middle" font-family="Bodoni Moda, Georgia, serif" font-size="32" font-weight="700" fill="#26201a" stroke="#f6f0df" stroke-width="4" paint-order="stroke">C</text>
+        <text x="60" y="92" text-anchor="middle" font-family="Bodoni Moda, Georgia, serif" font-size="12" font-weight="700" letter-spacing="2.4" fill="#26201a">CORVUS</text>
+        <text x="60" y="104" text-anchor="middle" font-family="Bodoni Moda, Georgia, serif" font-size="6.5" letter-spacing="1" fill="#26201a">INSURANCE</text>
+      </symbol>
 
-      <!-- Figure parts, drawn in the same tall box as the ad art -->
-      <symbol id="fig-hanger" viewBox="0 -14 120 234">
-        <path fill="none" d="M60 20V10a5 5 0 1 1 5 5"/>
-        <path fill="none" d="M60 20L106 38H14Z"/>
-      </symbol>
-      <symbol id="fig-head" viewBox="0 -14 120 234">
-        <path d="M55 22H65V36H55Z"/>
-        <ellipse cx="60" cy="14" rx="10.5" ry="13"/>
-      </symbol>
-      <symbol id="fig-hat" viewBox="0 -14 120 234">
-        <path d="M38 4Q60 -2 82 4Q60 9 38 4Z"/>
-        <path d="M46 3Q46 -13 60 -13Q74 -13 74 3Z"/>
-      </symbol>
-      <symbol id="fig-shirt" viewBox="0 -14 120 234">
-        <path d="M40 34L60 46L80 34L104 52L92 70L86 62V132H34V62L28 70L16 52Z"/>
-        <path fill="none" d="M60 46V132"/>
-      </symbol>
-      <symbol id="fig-tie" viewBox="0 -14 120 234">
-        <path d="M54 44H66L64 56H56Z"/>
-        <path d="M56 56H64L71 90L60 108L49 90Z"/>
-      </symbol>
-      <symbol id="fig-jacket" viewBox="0 -14 120 234">
-        <path d="M36 34L16 44L10 112L26 116L30 80L32 132H56L60 84L64 132H88L90 80L94 116L110 112L104 44L84 34L72 42L60 60L48 42Z"/>
-        <circle cx="44" cy="96" r="2.5"/>
-      </symbol>
-      <symbol id="fig-square" viewBox="0 -14 120 234">
-        <path d="M34 66L40 62L46 66L40 76Z"/>
-      </symbol>
-      <symbol id="fig-trousers" viewBox="0 -14 120 234">
-        <path d="M34 128H86L83 206H65L60 146L55 206H37Z"/>
-      </symbol>
-      <symbol id="fig-shoes" viewBox="0 -14 120 234">
-        <path d="M37 206H57V213H31Q31 207 37 206Z"/>
-        <path d="M63 206H83Q89 207 89 213H63Z"/>
-      </symbol>
-      <symbol id="fig-bag" viewBox="0 -14 120 234">
-        <path d="M24 38H96V130Q96 138 88 138H32Q24 138 24 130Z"/>
-        <path fill="none" d="M60 46V130"/>
-        <path d="M84 36H92V52H84Z"/>
+      <!-- Black-and-white trademark shield for SentryOne -->
+      <symbol id="logo-sentryone" viewBox="0 0 120 120">
+        <path d="M60 6L110 20V58C110 88 88 106 60 116C32 106 10 88 10 58V20Z" fill="#f6f0df" stroke="#26201a" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M60 14L102 25V58C102 83 84 98 60 107C36 98 18 83 18 58V25Z" fill="none" stroke="#26201a" stroke-width="1.2"/>
+        <path d="M18 68Q60 80 102 68V86Q60 98 18 86Z" fill="url(#hatch)" stroke="#26201a" stroke-width="1.2"/>
+        <rect x="16" y="44" width="88" height="18" fill="#26201a"/>
+        <text x="60" y="57.5" text-anchor="middle" font-family="Bodoni Moda, Georgia, serif" font-size="13" font-weight="700" letter-spacing="0.6" fill="#f6f0df">SentryOne</text>
       </symbol>
     </svg>
 
     <main class="page">
       <header class="masthead">
-        <h1 class="nameplate">Roan Urquhart</h1>
-        <div class="dateline">
-          <p class="dateline-place">Raleigh, NC</p>
-          <ul class="links">
+        <div class="plate">
+          <p class="ear ear--place">Raleigh, NC</p>
+          <h1 class="nameplate">Roan Urquhart</h1>
+          <ul class="ear ear--links">
             <li><a href="mailto:roanurquhart@gmail.com">roanurquhart@gmail.com</a></li>
             <li><a href="https://github.com/roanurquhart" rel="noopener noreferrer">GitHub</a></li>
             <li><a href="https://www.linkedin.com/in/roan-urquhart/" rel="noopener noreferrer">LinkedIn</a></li>
           </ul>
         </div>
+        <nav class="dateline" aria-label="Sections">
+          <ul class="section-links">
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+          </ul>
+        </nav>
       </header>
 
       <section id="education" aria-labelledby="education-heading">
@@ -130,153 +78,77 @@
 
       <section id="experience" aria-labelledby="experience-heading">
         <h2 id="experience-heading">Experience</h2>
-        <p class="ads-hint" hidden>Select an ad to read more.</p>
+        <p class="stories-hint">Select a story to read it</p>
 
-        <div class="ads">
+        <div class="stories">
           <!-- TODO: placeholder for the 2024 to present role; replace title, company, and bullets -->
-          <article class="ad ad--reserved todo" id="role-2024-present" aria-labelledby="role-2024-present-title">
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-blank"></use>
-              <g class="figure">
-                <use href="#fig-hanger" class="ink"></use>
-                <use href="#fig-bag" class="ink-tan"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-2024-present-title">
-                TODO: 2024 – present
-                <span class="badge">TODO</span>
-              </h3>
-              <ul class="ad-copy">
-                <li>TODO: fill in</li>
-              </ul>
-            </div>
-            <p class="wordmark wordmark--caps">TODO: company</p>
+          <article class="notice todo" id="role-2024-present" aria-labelledby="role-2024-present-title">
+            <h3 id="role-2024-present-title">
+              TODO: 2024 – present
+              <span class="badge">TODO</span>
+            </h3>
+            <p class="story-byline">TODO: company</p>
+            <p class="notice-copy">TODO: fill in</p>
           </article>
 
-          <article class="ad ad--lg" id="role-senior-swe" aria-labelledby="role-senior-swe-title">
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-city"></use>
-              <g class="figure" filter="url(#paint)">
-                <use href="#fig-trousers" class="ink-brown"></use>
-                <use href="#fig-shoes" class="ink"></use>
-                <use href="#fig-head" class="ink-skin"></use>
-                <use href="#fig-shirt" class="ink-paper"></use>
-                <use href="#fig-tie" class="ink-red"></use>
-                <use href="#fig-jacket" class="ink-camel"></use>
-                <use href="#fig-square" class="ink-ochre"></use>
-                <use href="#fig-hat" class="ink-brown"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-senior-swe-title">Senior Software Engineer</h3>
-              <p class="ad-dates">January 2024 – September 2024</p>
-              <ul class="ad-copy">
-                <li>Built and led an engineering team with a focus on consistent delivery and feature ownership. This team frequently ranked among the most productive at the company</li>
-                <li>Architected a proof-of-concept that used Large Language Models (LLMs) to accurately extract complex data from PDF applications, which if implemented could save the company $160,000 a year.</li>
-                <li>Served as the domain technical expert during a months-long project to create a robust Data Platform for our underwriting software.</li>
-              </ul>
-            </div>
-            <p class="wordmark wordmark--caps">Corvus Insurance</p>
+          <article class="story story--lead" id="role-senior-swe" aria-labelledby="role-senior-swe-title">
+            <svg class="story-logo" viewBox="0 0 120 120" aria-hidden="true"><use href="#logo-corvus" width="120" height="120"></use></svg>
+            <h3 class="story-title" id="role-senior-swe-title">Senior Software Engineer</h3>
+            <p class="story-byline">Corvus Insurance · January 2024 – September 2024</p>
+            <ul class="story-copy">
+              <li>Built and led an engineering team with a focus on consistent delivery and feature ownership. This team frequently ranked among the most productive at the company</li>
+              <li>Architected a proof-of-concept that used Large Language Models (LLMs) to accurately extract complex data from PDF applications, which if implemented could save the company $160,000 a year.</li>
+              <li>Served as the domain technical expert during a months-long project to create a robust Data Platform for our underwriting software.</li>
+            </ul>
           </article>
 
-          <article class="ad ad--md" id="role-swe" aria-labelledby="role-swe-title">
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-harbour"></use>
-              <g class="figure" filter="url(#paint)">
-                <use href="#fig-trousers" class="ink-navy"></use>
-                <use href="#fig-shoes" class="ink"></use>
-                <use href="#fig-head" class="ink-skin"></use>
-                <use href="#fig-shirt" class="ink-paper"></use>
-                <use href="#fig-tie" class="ink-red"></use>
-                <use href="#fig-jacket" class="ink-navy"></use>
-                <use href="#fig-square" class="ink-ochre"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-swe-title">Software Engineer</h3>
-              <p class="ad-dates">January 2022 – January 2024</p>
-              <ul class="ad-copy">
-                <li>Architected and delivered a new product line over the total of 10 months which enabled Corvus to write insurance worldwide, which was previously impossible.</li>
-                <li>Served consistently as a Project Lead, a role that involves leading the planning, scoping, and delivery of an entire team's work over a single cycle (5 weeks).</li>
-                <li>Developed several new data integrations with third-party software companies, such as AWS and SentinelOne, which allowed Corvus to provide security recommendations to policyholders.</li>
-                <li>Mentored both engineering interns and associates, many of which have been promoted and run their own teams currently.</li>
-                <li>Prototyped a GMail Add-on, using Google's App Script, which streamlined the Underwriter-Broker communication archival process.</li>
-              </ul>
-            </div>
-            <p class="wordmark wordmark--caps">Corvus Insurance</p>
+          <article class="story story--md" id="role-swe" aria-labelledby="role-swe-title">
+            <svg class="story-logo" viewBox="0 0 120 120" aria-hidden="true"><use href="#logo-corvus" width="120" height="120"></use></svg>
+            <h3 class="story-title" id="role-swe-title">Software Engineer</h3>
+            <p class="story-byline">Corvus Insurance · January 2022 – January 2024</p>
+            <ul class="story-copy">
+              <li>Architected and delivered a new product line over the total of 10 months which enabled Corvus to write insurance worldwide, which was previously impossible.</li>
+              <li>Served consistently as a Project Lead, a role that involves leading the planning, scoping, and delivery of an entire team's work over a single cycle (5 weeks).</li>
+              <li>Developed several new data integrations with third-party software companies, such as AWS and SentinelOne, which allowed Corvus to provide security recommendations to policyholders.</li>
+              <li>Mentored both engineering interns and associates, many of which have been promoted and run their own teams currently.</li>
+              <li>Prototyped a GMail Add-on, using Google's App Script, which streamlined the Underwriter-Broker communication archival process.</li>
+            </ul>
           </article>
 
-          <article class="ad ad--sm" id="role-associate-swe" aria-labelledby="role-associate-swe-title">
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-window"></use>
-              <g class="figure" filter="url(#paint)">
-                <use href="#fig-trousers" class="ink-slate"></use>
-                <use href="#fig-shoes" class="ink"></use>
-                <use href="#fig-head" class="ink-skin"></use>
-                <use href="#fig-shirt" class="ink-paper"></use>
-                <use href="#fig-tie" class="ink-navy"></use>
-                <use href="#fig-jacket" class="ink-slate"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-associate-swe-title">Associate Software Engineer</h3>
-              <p class="ad-dates">October 2021 – January 2022</p>
-              <ul class="ad-copy">
-                <li>Developed a strong understanding of functional programming techniques and design through the usage of two functional programming languages; Elixir and Elm.</li>
-                <li>Supported internal underwriter stakeholders by triaging and resolving issues reported within Corvus's primary application.</li>
-              </ul>
-            </div>
-            <p class="wordmark wordmark--caps">Corvus Insurance</p>
+          <article class="story story--sm" id="role-associate-swe" aria-labelledby="role-associate-swe-title">
+            <svg class="story-logo" viewBox="0 0 120 120" aria-hidden="true"><use href="#logo-corvus" width="120" height="120"></use></svg>
+            <h3 class="story-title" id="role-associate-swe-title">Associate Software Engineer</h3>
+            <p class="story-byline">Corvus Insurance · October 2021 – January 2022</p>
+            <ul class="story-copy">
+              <li>Developed a strong understanding of functional programming techniques and design through the usage of two functional programming languages; Elixir and Elm.</li>
+              <li>Supported internal underwriter stakeholders by triaging and resolving issues reported within Corvus's primary application.</li>
+            </ul>
           </article>
 
-          <article class="ad ad--sm" id="role-associate-sde" aria-labelledby="role-associate-sde-title">
-            <p class="wordmark wordmark--script">SentryOne</p>
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-park"></use>
-              <g class="figure" filter="url(#paint)">
-                <use href="#fig-trousers" class="ink-brown"></use>
-                <use href="#fig-shoes" class="ink"></use>
-                <use href="#fig-head" class="ink-skin"></use>
-                <use href="#fig-shirt" class="ink-paper"></use>
-                <use href="#fig-tie" class="ink-red"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-associate-sde-title">Associate Software Development Engineer</h3>
-              <p class="ad-dates">June 2020 – October 2021</p>
-              <ul class="ad-copy">
-                <li>Collaborated with a small team of engineers to design and implement major new features in C# across several of SentryOne's on-premise and SaaS products.</li>
-                <li>Contributed to the release of a new SaaS product by building and troubleshooting CI/CD pipelines within Azure DevOps.</li>
-                <li>Implemented REST APIs in Go to support data retrieval, sorting, and pagination for a front end web application</li>
-                <li>Leveraged Docker containers to improve development and testing efficiency.</li>
-                <li>Improved personal engineering skills by following Test-Driven Design principles, learning advanced refactoring techniques, and performing code reviews.</li>
-                <li>Presented at company-wide meetings in order to demonstrate the functionality of new software.</li>
-                <li>Maintained and provisioned cloud infrastructure in Azure using Terraform templates.</li>
-              </ul>
-            </div>
+          <article class="story story--sm" id="role-associate-sde" aria-labelledby="role-associate-sde-title">
+            <svg class="story-logo" viewBox="0 0 120 120" aria-hidden="true"><use href="#logo-sentryone" width="120" height="120"></use></svg>
+            <h3 class="story-title" id="role-associate-sde-title">Associate Software Development Engineer</h3>
+            <p class="story-byline">SentryOne · June 2020 – October 2021</p>
+            <ul class="story-copy">
+              <li>Collaborated with a small team of engineers to design and implement major new features in C# across several of SentryOne's on-premise and SaaS products.</li>
+              <li>Contributed to the release of a new SaaS product by building and troubleshooting CI/CD pipelines within Azure DevOps.</li>
+              <li>Implemented REST APIs in Go to support data retrieval, sorting, and pagination for a front end web application</li>
+              <li>Leveraged Docker containers to improve development and testing efficiency.</li>
+              <li>Improved personal engineering skills by following Test-Driven Design principles, learning advanced refactoring techniques, and performing code reviews.</li>
+              <li>Presented at company-wide meetings in order to demonstrate the functionality of new software.</li>
+              <li>Maintained and provisioned cloud infrastructure in Azure using Terraform templates.</li>
+            </ul>
           </article>
 
-          <article class="ad ad--sm ad--halftone" id="role-intern" aria-labelledby="role-intern-title">
-            <p class="wordmark wordmark--script">SentryOne</p>
-            <svg class="ad-art" viewBox="0 -14 120 234" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-              <use href="#scene-park"></use>
-              <g class="figure" filter="url(#paint)">
-                <use href="#fig-trousers" class="ink-slate"></use>
-                <use href="#fig-shoes" class="ink"></use>
-                <use href="#fig-head" class="ink-skin"></use>
-                <use href="#fig-shirt" class="ink-paper"></use>
-              </g>
-            </svg>
-            <div class="ad-text">
-              <h3 id="role-intern-title">Software Engineering Intern</h3>
-              <p class="ad-dates">Summer 2019</p>
-              <ul class="ad-copy">
-                <li>Collaborated with a small team of engineers on backend development tasks related to SentryOne's main desktop client.</li>
-                <li>Participated in various Agile Scrum ceremonies and delivered feature work in two week sprint intervals.</li>
-                <li>Developed a training application in Typescript React for the benefit of the onboarding of future interns.</li>
-              </ul>
-            </div>
+          <article class="story story--sm" id="role-intern" aria-labelledby="role-intern-title">
+            <svg class="story-logo" viewBox="0 0 120 120" aria-hidden="true"><use href="#logo-sentryone" width="120" height="120"></use></svg>
+            <h3 class="story-title" id="role-intern-title">Software Engineering Intern</h3>
+            <p class="story-byline">SentryOne · Summer 2019</p>
+            <ul class="story-copy">
+              <li>Collaborated with a small team of engineers on backend development tasks related to SentryOne's main desktop client.</li>
+              <li>Participated in various Agile Scrum ceremonies and delivered feature work in two week sprint intervals.</li>
+              <li>Developed a training application in Typescript React for the benefit of the onboarding of future interns.</li>
+            </ul>
           </article>
         </div>
       </section>
