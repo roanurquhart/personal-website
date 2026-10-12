@@ -1,27 +1,27 @@
 # roanurquhart.com
 
-Personal one-page site (resume + project links), built with [Astro](https://astro.build) and deployed to GitHub Pages at https://roanurquhart.com.
+Personal one-page site (resume + project links), plain static HTML and CSS, deployed to GitHub Pages at https://roanurquhart.com.
 
 ## Where content lives
 
-- **`src/data/resume.ts`**: all text, links, experience, projects, skills, and education. Edit this file to change the site content.
-- **`src/pages/index.astro`**: page layout and styling. Only touch this for design changes.
-- **`public/`**: static files served as-is (currently `favicon.svg`).
-- **`astro.config.mjs`**: sets the site URL (`https://roanurquhart.com`).
+- **`site/index.html`**: all page content (text, links, experience, projects, skills, education) and the markup. Placeholders are marked with a visible TODO badge, the `todo` class, and an HTML comment beside them. To fill one in, remove the badge, the `todo` class, and the comment. Find them with `grep -n TODO site/index.html`.
+- **`site/styles.css`**: layout and styling, including light/dark mode via `prefers-color-scheme`.
+- **`site/favicon.svg`**: the site icon.
 
-Entries marked `todo: true` in `resume.ts` are placeholders and render with a TODO badge. Remove the flag once the entry is filled in.
-
-## Run locally
-
-Requires Node.js 22.12 or newer.
+## Preview locally
 
 ```sh
-npm ci           # install exact dependency versions
-npm run dev      # dev server at http://localhost:4321
-npm run build    # production build into dist/
-npm run preview  # serve the built dist/ locally
+python3 -m http.server -d site
+```
+
+Then open http://localhost:8000.
+
+## Validate (optional)
+
+```sh
+npx --yes html-validate@11.15.0 --preset standard site/
 ```
 
 ## Deploy
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site with `withastro/action` and publishes `dist/` with `actions/deploy-pages`. It can also be run manually from the Actions tab (`workflow_dispatch`).
+Pushing to `main` runs `.github/workflows/deploy.yml`, which uploads `site/` as a Pages artifact and publishes it with `actions/deploy-pages`. It can also be run manually from the Actions tab (`workflow_dispatch`). There is no build step.
