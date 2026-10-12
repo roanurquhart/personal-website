@@ -1,0 +1,14 @@
+# Software factory (local tooling, not part of the site)
+adws/
+justfile
+.env.sample
+.env
+
+# Claude Code
+.claude/
+
+.DS_Store
+
+# Factory run records (plans and write-ups)
+specs/
+app_docs/
