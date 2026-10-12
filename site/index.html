@@ -4,106 +4,282 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#f2e8d5" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#141b2b" media="(prefers-color-scheme: dark)">
     <meta name="description" content="Roan Urquhart is a software engineer in Raleigh, NC.">
     <title>Roan Urquhart</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="canonical" href="https://roanurquhart.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&amp;family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Yellowtail&amp;display=swap">
     <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
   </head>
   <body>
+    <svg class="sprite" aria-hidden="true">
+      <symbol id="fig-hanger" viewBox="0 0 120 140">
+        <path fill="none" d="M60 20V10a5 5 0 1 1 5 5"/>
+        <path fill="none" d="M60 20L106 38H14Z"/>
+      </symbol>
+      <symbol id="fig-shirt" viewBox="0 0 120 140">
+        <path d="M40 34L60 46L80 34L104 52L92 70L86 62V132H34V62L28 70L16 52Z"/>
+        <path fill="none" d="M60 46V132"/>
+      </symbol>
+      <symbol id="fig-tie" viewBox="0 0 120 140">
+        <path d="M54 44H66L64 56H56Z"/>
+        <path d="M56 56H64L71 90L60 108L49 90Z"/>
+      </symbol>
+      <symbol id="fig-jacket" viewBox="0 0 120 140">
+        <path d="M36 34L16 44L10 112L26 116L30 80L32 132H56L60 84L64 132H88L90 80L94 116L110 112L104 44L84 34L72 42L60 60L48 42Z"/>
+        <circle cx="44" cy="96" r="2.5"/>
+      </symbol>
+      <symbol id="fig-square" viewBox="0 0 120 140">
+        <path d="M34 66L40 62L46 66L40 76Z"/>
+      </symbol>
+      <symbol id="fig-hat" viewBox="0 0 120 140">
+        <path d="M70 20Q90 12 112 20Q90 26 70 20Z"/>
+        <path d="M80 18Q80 2 92 3Q104 2 104 18Z"/>
+      </symbol>
+      <symbol id="fig-bag" viewBox="0 0 120 140">
+        <path d="M24 38H96V130Q96 138 88 138H32Q24 138 24 130Z"/>
+        <path fill="none" d="M60 46V130"/>
+        <path d="M84 36H92V52H84Z"/>
+      </symbol>
+    </svg>
+
     <main>
-      <header>
-        <h1>Roan Urquhart</h1>
-        <p class="meta">Raleigh, NC</p>
-        <p class="intro">Roan Urquhart is a software engineer in Raleigh, NC.</p>
-        <ul class="links">
-          <li><a href="mailto:roanurquhart@gmail.com">roanurquhart@gmail.com</a></li>
-          <li><a href="https://github.com/roanurquhart" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/roan-urquhart/" rel="noopener noreferrer">LinkedIn</a></li>
-        </ul>
+      <header class="masthead">
+        <div class="masthead-copy">
+          <p class="edition"><span class="edition-day">Morning Edition</span><span class="edition-night">Night Edition</span></p>
+          <p class="kicker">Presenting</p>
+          <h1>Roan Urquhart</h1>
+          <p class="meta">Raleigh, NC</p>
+          <p class="headline-dek">The Engineer Who Ships.</p>
+          <p class="intro">Roan Urquhart is a software engineer in Raleigh, NC.</p>
+          <div class="coupon">
+            <p class="coupon-label"><span aria-hidden="true">✂</span> Correspondence</p>
+            <ul class="links">
+              <li><a href="mailto:roanurquhart@gmail.com">roanurquhart@gmail.com</a></li>
+              <li><a href="https://github.com/roanurquhart" rel="noopener noreferrer">GitHub</a></li>
+              <li><a href="https://www.linkedin.com/in/roan-urquhart/" rel="noopener noreferrer">LinkedIn</a></li>
+            </ul>
+          </div>
+        </div>
+        <svg class="fig fig-hero" viewBox="0 0 120 140" aria-hidden="true">
+          <use href="#fig-hanger" class="ink"></use>
+          <use href="#fig-shirt" class="ink-paper"></use>
+          <use href="#fig-tie" class="ink-oxblood"></use>
+          <use href="#fig-jacket" class="ink-jacket"></use>
+          <use href="#fig-square" class="ink-mustard"></use>
+          <use href="#fig-hat" class="ink-olive"></use>
+        </svg>
       </header>
 
       <section id="education" aria-labelledby="education-heading">
+        <p class="kicker">Where the Cloth Was Cut</p>
         <h2 id="education-heading">Education</h2>
-        <article class="entry">
+        <article class="entry label">
           <h3>The University of North Carolina at Chapel Hill</h3>
           <p class="meta">Bachelors Degree in Computer Science</p>
           <p class="meta">August 2016 – May 2020</p>
         </article>
       </section>
 
-      <section id="experience" aria-labelledby="experience-heading">
+      <section id="experience" class="catalog" aria-labelledby="experience-heading">
+        <p class="kicker">The Season’s Catalog</p>
         <h2 id="experience-heading">Experience</h2>
+        <p class="dek">Every role, newest first, each on its own plate.</p>
 
-        <!-- TODO: placeholder for the 2024 to present role; replace title, company, and bullets -->
-        <article class="entry todo">
-          <h3>
-            TODO: 2024 – present
-            <span class="badge">TODO</span>
-          </h3>
-          <p class="meta">TODO: company</p>
-          <ul>
-            <li>TODO: fill in</li>
-          </ul>
-        </article>
+        <nav class="plate-index" aria-label="Experience plates">
+          <ol>
+            <!-- TODO: update this ticket when the 2024 to present role is filled in -->
+            <li><a class="plate-link" href="#role-next-season">
+              <span class="ticket-no">Next Season</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-bag" class="ink-tan"></use>
+              </svg>
+              <span class="ticket-role">Coming next season</span>
+              <span class="ticket-tag">2024 – present</span>
+            </a></li>
+            <li><a class="plate-link" href="#role-senior-swe">
+              <span class="ticket-no">No. 1</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-shirt" class="ink-paper"></use>
+                <use href="#fig-tie" class="ink-oxblood"></use>
+                <use href="#fig-jacket" class="ink-jacket"></use>
+                <use href="#fig-square" class="ink-mustard"></use>
+                <use href="#fig-hat" class="ink-olive"></use>
+              </svg>
+              <span class="ticket-role">Senior Software Engineer</span>
+              <span class="ticket-tag">Corvus Insurance · 2024</span>
+            </a></li>
+            <li><a class="plate-link" href="#role-swe">
+              <span class="ticket-no">No. 2</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-shirt" class="ink-paper"></use>
+                <use href="#fig-tie" class="ink-oxblood"></use>
+                <use href="#fig-jacket" class="ink-jacket"></use>
+                <use href="#fig-square" class="ink-mustard"></use>
+              </svg>
+              <span class="ticket-role">Software Engineer</span>
+              <span class="ticket-tag">Corvus Insurance · 2022–2024</span>
+            </a></li>
+            <li><a class="plate-link" href="#role-associate-swe">
+              <span class="ticket-no">No. 3</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-shirt" class="ink-paper"></use>
+                <use href="#fig-tie" class="ink-oxblood"></use>
+                <use href="#fig-jacket" class="ink-jacket"></use>
+              </svg>
+              <span class="ticket-role">Associate Software Engineer</span>
+              <span class="ticket-tag">Corvus Insurance · 2021–2022</span>
+            </a></li>
+            <li><a class="plate-link" href="#role-associate-sde">
+              <span class="ticket-no">No. 4</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-shirt" class="ink-paper"></use>
+                <use href="#fig-tie" class="ink-oxblood"></use>
+              </svg>
+              <span class="ticket-role">Associate Software Development Engineer</span>
+              <span class="ticket-tag">SentryOne · 2020–2021</span>
+            </a></li>
+            <li><a class="plate-link" href="#role-intern">
+              <span class="ticket-no">No. 5</span>
+              <svg class="fig fig-ticket" viewBox="0 0 120 140" aria-hidden="true">
+                <use href="#fig-hanger" class="ink"></use>
+                <use href="#fig-shirt" class="ink-paper"></use>
+              </svg>
+              <span class="ticket-role">Software Engineering Intern</span>
+              <span class="ticket-tag">SentryOne · 2019</span>
+            </a></li>
+          </ol>
+        </nav>
+        <p class="catalog-hint">Select a plate to see its advertisement.</p>
 
-        <article class="entry">
-          <h3>Senior Software Engineer</h3>
-          <p class="meta">Corvus Insurance · January 2024 – September 2024</p>
-          <ul>
-            <li>Built and led an engineering team with a focus on consistent delivery and feature ownership. This team frequently ranked among the most productive at the company</li>
-            <li>Architected a proof-of-concept that used Large Language Models (LLMs) to accurately extract complex data from PDF applications, which if implemented could save the company $160,000 a year.</li>
-            <li>Served as the domain technical expert during a months-long project to create a robust Data Platform for our underwriting software.</li>
-          </ul>
-        </article>
+        <div class="plates">
+          <!-- TODO: placeholder for the 2024 to present role; replace title, company, and bullets -->
+          <article class="entry todo plate plate--next-season" id="role-next-season">
+            <p class="plate-no">Next Season</p>
+            <p class="tagline">Coming Next Season.</p>
+            <h3>
+              TODO: 2024 – present
+              <span class="badge">TODO</span>
+            </h3>
+            <p class="meta">TODO: company</p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-bag" class="ink-tan"></use>
+            </svg>
+            <ul>
+              <li>TODO: fill in</li>
+            </ul>
+          </article>
 
-        <article class="entry">
-          <h3>Software Engineer</h3>
-          <p class="meta">Corvus Insurance · January 2022 – January 2024</p>
-          <ul>
-            <li>Architected and delivered a new product line over the total of 10 months which enabled Corvus to write insurance worldwide, which was previously impossible.</li>
-            <li>Served consistently as a Project Lead, a role that involves leading the planning, scoping, and delivery of an entire team's work over a single cycle (5 weeks).</li>
-            <li>Developed several new data integrations with third-party software companies, such as AWS and SentinelOne, which allowed Corvus to provide security recommendations to policyholders.</li>
-            <li>Mentored both engineering interns and associates, many of which have been promoted and run their own teams currently.</li>
-            <li>Prototyped a GMail Add-on, using Google's App Script, which streamlined the Underwriter-Broker communication archival process.</li>
-          </ul>
-        </article>
+          <article class="entry plate" id="role-senior-swe">
+            <p class="plate-no">Plate No. 1</p>
+            <p class="tagline">Built to Lead.</p>
+            <h3>Senior Software Engineer</h3>
+            <p class="meta"><span class="maker">Corvus Insurance</span> <span class="sep">·</span> <span class="tag">January 2024 – September 2024</span></p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-shirt" class="ink-paper"></use>
+              <use href="#fig-tie" class="ink-oxblood"></use>
+              <use href="#fig-jacket" class="ink-jacket"></use>
+              <use href="#fig-square" class="ink-mustard"></use>
+              <use href="#fig-hat" class="ink-olive"></use>
+            </svg>
+            <ul>
+              <li>Built and led an engineering team with a focus on consistent delivery and feature ownership. This team frequently ranked among the most productive at the company</li>
+              <li>Architected a proof-of-concept that used Large Language Models (LLMs) to accurately extract complex data from PDF applications, which if implemented could save the company $160,000 a year.</li>
+              <li>Served as the domain technical expert during a months-long project to create a robust Data Platform for our underwriting software.</li>
+            </ul>
+          </article>
 
-        <article class="entry">
-          <h3>Associate Software Engineer</h3>
-          <p class="meta">Corvus Insurance · October 2021 – January 2022</p>
-          <ul>
-            <li>Developed a strong understanding of functional programming techniques and design through the usage of two functional programming languages; Elixir and Elm.</li>
-            <li>Supported internal underwriter stakeholders by triaging and resolving issues reported within Corvus's primary application.</li>
-          </ul>
-        </article>
+          <article class="entry plate" id="role-swe">
+            <p class="plate-no">Plate No. 2</p>
+            <p class="tagline">Made to Go Worldwide.</p>
+            <h3>Software Engineer</h3>
+            <p class="meta"><span class="maker">Corvus Insurance</span> <span class="sep">·</span> <span class="tag">January 2022 – January 2024</span></p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-shirt" class="ink-paper"></use>
+              <use href="#fig-tie" class="ink-oxblood"></use>
+              <use href="#fig-jacket" class="ink-jacket"></use>
+              <use href="#fig-square" class="ink-mustard"></use>
+            </svg>
+            <ul>
+              <li>Architected and delivered a new product line over the total of 10 months which enabled Corvus to write insurance worldwide, which was previously impossible.</li>
+              <li>Served consistently as a Project Lead, a role that involves leading the planning, scoping, and delivery of an entire team's work over a single cycle (5 weeks).</li>
+              <li>Developed several new data integrations with third-party software companies, such as AWS and SentinelOne, which allowed Corvus to provide security recommendations to policyholders.</li>
+              <li>Mentored both engineering interns and associates, many of which have been promoted and run their own teams currently.</li>
+              <li>Prototyped a GMail Add-on, using Google's App Script, which streamlined the Underwriter-Broker communication archival process.</li>
+            </ul>
+          </article>
 
-        <article class="entry">
-          <h3>Associate Software Development Engineer</h3>
-          <p class="meta">SentryOne · June 2020 – October 2021</p>
-          <ul>
-            <li>Collaborated with a small team of engineers to design and implement major new features in C# across several of SentryOne's on-premise and SaaS products.</li>
-            <li>Contributed to the release of a new SaaS product by building and troubleshooting CI/CD pipelines within Azure DevOps.</li>
-            <li>Implemented REST APIs in Go to support data retrieval, sorting, and pagination for a front end web application</li>
-            <li>Leveraged Docker containers to improve development and testing efficiency.</li>
-            <li>Improved personal engineering skills by following Test-Driven Design principles, learning advanced refactoring techniques, and performing code reviews.</li>
-            <li>Presented at company-wide meetings in order to demonstrate the functionality of new software.</li>
-            <li>Maintained and provisioned cloud infrastructure in Azure using Terraform templates.</li>
-          </ul>
-        </article>
+          <article class="entry plate" id="role-associate-swe">
+            <p class="plate-no">Plate No. 3</p>
+            <p class="tagline">Cut in Elixir. Finished in Elm.</p>
+            <h3>Associate Software Engineer</h3>
+            <p class="meta"><span class="maker">Corvus Insurance</span> <span class="sep">·</span> <span class="tag">October 2021 – January 2022</span></p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-shirt" class="ink-paper"></use>
+              <use href="#fig-tie" class="ink-oxblood"></use>
+              <use href="#fig-jacket" class="ink-jacket"></use>
+            </svg>
+            <ul>
+              <li>Developed a strong understanding of functional programming techniques and design through the usage of two functional programming languages; Elixir and Elm.</li>
+              <li>Supported internal underwriter stakeholders by triaging and resolving issues reported within Corvus's primary application.</li>
+            </ul>
+          </article>
 
-        <article class="entry">
-          <h3>Software Engineering Intern</h3>
-          <p class="meta">SentryOne · Summer 2019</p>
-          <ul>
-            <li>Collaborated with a small team of engineers on backend development tasks related to SentryOne's main desktop client.</li>
-            <li>Participated in various Agile Scrum ceremonies and delivered feature work in two week sprint intervals.</li>
-            <li>Developed a training application in Typescript React for the benefit of the onboarding of future interns.</li>
-          </ul>
-        </article>
+          <article class="entry plate" id="role-associate-sde">
+            <p class="plate-no">Plate No. 4</p>
+            <p class="tagline">Pressed in C#, Go and Terraform.</p>
+            <h3>Associate Software Development Engineer</h3>
+            <p class="meta"><span class="maker">SentryOne</span> <span class="sep">·</span> <span class="tag">June 2020 – October 2021</span></p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-shirt" class="ink-paper"></use>
+              <use href="#fig-tie" class="ink-oxblood"></use>
+            </svg>
+            <ul>
+              <li>Collaborated with a small team of engineers to design and implement major new features in C# across several of SentryOne's on-premise and SaaS products.</li>
+              <li>Contributed to the release of a new SaaS product by building and troubleshooting CI/CD pipelines within Azure DevOps.</li>
+              <li>Implemented REST APIs in Go to support data retrieval, sorting, and pagination for a front end web application</li>
+              <li>Leveraged Docker containers to improve development and testing efficiency.</li>
+              <li>Improved personal engineering skills by following Test-Driven Design principles, learning advanced refactoring techniques, and performing code reviews.</li>
+              <li>Presented at company-wide meetings in order to demonstrate the functionality of new software.</li>
+              <li>Maintained and provisioned cloud infrastructure in Azure using Terraform templates.</li>
+            </ul>
+          </article>
+
+          <article class="entry plate" id="role-intern">
+            <p class="plate-no">Plate No. 5</p>
+            <p class="tagline">The Summer of ’19.</p>
+            <h3>Software Engineering Intern</h3>
+            <p class="meta"><span class="maker">SentryOne</span> <span class="sep">·</span> <span class="tag">Summer 2019</span></p>
+            <svg class="fig fig-plate" viewBox="0 0 120 140" aria-hidden="true">
+              <use href="#fig-hanger" class="ink"></use>
+              <use href="#fig-shirt" class="ink-paper"></use>
+            </svg>
+            <ul>
+              <li>Collaborated with a small team of engineers on backend development tasks related to SentryOne's main desktop client.</li>
+              <li>Participated in various Agile Scrum ceremonies and delivered feature work in two week sprint intervals.</li>
+              <li>Developed a training application in Typescript React for the benefit of the onboarding of future interns.</li>
+            </ul>
+          </article>
+        </div>
       </section>
 
       <section id="skills" aria-labelledby="skills-heading">
+        <p class="kicker">The Particulars</p>
         <h2 id="skills-heading">Skills</h2>
         <dl class="skills">
           <dt>Programming Languages</dt>
@@ -116,35 +292,43 @@
       </section>
 
       <section id="projects" aria-labelledby="projects-heading">
+        <p class="kicker">From the Workshop</p>
         <h2 id="projects-heading">Projects</h2>
 
-        <!-- TODO: placeholder for the software-factory project; replace the description -->
-        <article class="entry todo">
-          <h3>
-            <a href="https://github.com/roanurquhart/software-factory" rel="noopener noreferrer">software-factory</a>
-            <span class="badge">TODO</span>
-          </h3>
-          <p>TODO: describe this project</p>
-        </article>
+        <div class="classifieds">
+          <!-- TODO: placeholder for the software-factory project; replace the description -->
+          <article class="entry todo">
+            <h3>
+              <a href="https://github.com/roanurquhart/software-factory" rel="noopener noreferrer">software-factory</a>
+              <span class="badge">TODO</span>
+            </h3>
+            <p>TODO: describe this project</p>
+          </article>
 
-        <!-- TODO: placeholder for the spotify-playlist-generator project; replace the description -->
-        <article class="entry todo">
-          <h3>
-            <a href="https://github.com/roanurquhart/spotify-playlist-generator" rel="noopener noreferrer">spotify-playlist-generator</a>
-            <span class="badge">TODO</span>
-          </h3>
-          <p>TODO: describe this project</p>
-        </article>
+          <!-- TODO: placeholder for the spotify-playlist-generator project; replace the description -->
+          <article class="entry todo">
+            <h3>
+              <a href="https://github.com/roanurquhart/spotify-playlist-generator" rel="noopener noreferrer">spotify-playlist-generator</a>
+              <span class="badge">TODO</span>
+            </h3>
+            <p>TODO: describe this project</p>
+          </article>
 
-        <!-- TODO: placeholder for the Unity-Fluid-Simulation project; replace the description -->
-        <article class="entry todo">
-          <h3>
-            <a href="https://github.com/roanurquhart/Unity-Fluid-Simulation" rel="noopener noreferrer">Unity-Fluid-Simulation</a>
-            <span class="badge">TODO</span>
-          </h3>
-          <p>TODO: describe this project</p>
-        </article>
+          <!-- TODO: placeholder for the Unity-Fluid-Simulation project; replace the description -->
+          <article class="entry todo">
+            <h3>
+              <a href="https://github.com/roanurquhart/Unity-Fluid-Simulation" rel="noopener noreferrer">Unity-Fluid-Simulation</a>
+              <span class="badge">TODO</span>
+            </h3>
+            <p>TODO: describe this project</p>
+          </article>
+        </div>
       </section>
+
+      <footer class="colophon">
+        <p class="signoff">Roan Urquhart</p>
+        <p>Raleigh, NC</p>
+      </footer>
     </main>
   </body>
 </html>
