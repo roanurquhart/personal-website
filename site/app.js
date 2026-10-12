@@ -1,111 +1,116 @@
 /*
- * Zoom viewer for the Experience ads.
+ * Reader for the Experience stories.
  *
- * The page works without this script: every ad is printed in full.
- * With it, each ad's headline becomes a button. Pressing it zooms the ad
- * from its spot on the page into a modal viewer, with Previous, Next and
- * Close. Close (or Esc) zooms back out to the same spot.
+ * Without this script every story is printed in full, and the copy is at a
+ * readable size (the tiny styling only applies when <html> has the .js class).
+ * With it, each story's headline becomes a button. Activating it zooms the
+ * page toward that story while the page blurs and dims, then a reading frame
+ * settles in the centre. Previous and Next slide to the neighbouring story.
+ * Close (or Esc) zooms back out to the story shown, and the hash is cleared.
  */
 (() => {
-  const section = document.getElementById('experience');
-  if (!section) return;
-
-  const ads = Array.from(section.querySelectorAll('.ads > .ad'));
-  if (ads.length === 0) return;
-
   const root = document.documentElement;
-  const reduceMotion = () =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const page = document.querySelector('.page');
+  const section = document.getElementById('experience');
+  if (!page || !section) return;
 
-  let current = -1; // index of the ad shown in the viewer, or -1 when closed
-  let origin = -1; // index of the ad the reader first opened
-  let busy = false; // true while a view transition runs
+  const stories = Array.from(section.querySelectorAll('.stories > .story'));
+  if (stories.length === 0) return;
+
+  const ZOOM = 2.4;
+  const BLUR = 'blur(3px) brightness(0.85)';
+  const CLEAR = 'blur(0px) brightness(1)';
+  const EASE_IN_OUT = 'cubic-bezier(0.6, 0, 0.2, 1)';
+  const EASE_OUT = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+
+  const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const settled = (animation) => animation.finished.catch(() => {});
+  const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  let current = -1; // index shown in the reader, or -1 when closed
+  let origin = -1; // index the reader was opened on
+  let busy = false; // true while an open, close or slide runs
 
   /* ---------- Setup ---------- */
 
-  // Turn each headline into a button, keeping the heading element around it.
-  ads.forEach((ad) => {
-    const heading = ad.querySelector('h3');
+  stories.forEach((story, index) => {
+    const title = story.querySelector('.story-title');
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'ad-open';
+    button.className = 'story-open';
     button.setAttribute('aria-haspopup', 'dialog');
-    button.append(...heading.childNodes);
-    heading.append(button);
-    button.addEventListener('click', () => open(ads.indexOf(ad)));
+    button.append(...title.childNodes);
+    title.append(button);
+    button.addEventListener('click', () => open(index));
+    button.addEventListener('blur', () => story.classList.remove('is-returning'));
   });
 
-  const hint = section.querySelector('.ads-hint');
-  if (hint) hint.hidden = false;
-  section.classList.add('is-enhanced');
+  function el(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text) node.textContent = text;
+    return node;
+  }
 
-  // Build the viewer dialog once.
-  const dialog = document.createElement('dialog');
-  dialog.className = 'ad-viewer';
-  dialog.setAttribute('aria-labelledby', 'ad-viewer-title');
-
-  const sheet = document.createElement('div');
-  sheet.className = 'ad-viewer-sheet';
-
-  const bar = document.createElement('div');
-  bar.className = 'ad-viewer-bar';
-
-  const prevButton = makeButton('Previous', '‹', 'before');
-  const closeButton = makeButton('Close', '', 'after');
-  closeButton.insertAdjacentHTML('beforeend', ' <kbd>Esc</kbd>');
-  const nextButton = makeButton('Next', '›', 'after');
-
-  bar.append(prevButton, closeButton, nextButton);
-
-  const live = document.createElement('p');
-  live.className = 'visually-hidden';
-  live.setAttribute('aria-live', 'polite');
-
-  dialog.append(sheet, bar, live);
-  document.body.append(dialog);
-
-  function makeButton(label, arrow, arrowSide) {
-    const button = document.createElement('button');
+  function readerButton(label, arrow, side) {
+    const button = el('button', 'reader-btn');
     button.type = 'button';
-    button.className = 'ad-viewer-btn';
-    if (arrow && arrowSide === 'before') {
-      button.insertAdjacentHTML('beforeend', `<span aria-hidden="true">${arrow}</span> `);
+    if (side === 'before') {
+      const glyph = el('span', '', arrow);
+      glyph.setAttribute('aria-hidden', 'true');
+      button.append(glyph, ' ');
     }
     button.append(label);
-    if (arrow && arrowSide === 'after') {
-      button.insertAdjacentHTML('beforeend', ` <span aria-hidden="true">${arrow}</span>`);
+    if (side === 'after') {
+      const glyph = el('span', '', arrow);
+      glyph.setAttribute('aria-hidden', 'true');
+      button.append(' ', glyph);
     }
     return button;
   }
+
+  // The reader: a modal dialog holding one copy of a story and three buttons.
+  const reader = el('dialog', 'reader');
+  reader.setAttribute('aria-labelledby', 'reader-title');
+
+  const frame = el('div', 'reader-frame');
+  const sheet = el('div', 'reader-sheet');
+  const bar = el('div', 'reader-bar');
+
+  const prevButton = readerButton('Previous', '‹', 'before');
+  const closeButton = readerButton('Close', '', '');
+  closeButton.append(' ', el('kbd', '', 'Esc'));
+  const nextButton = readerButton('Next', '›', 'after');
+  bar.append(prevButton, closeButton, nextButton);
+
+  const live = el('p', 'visually-hidden');
+  live.setAttribute('aria-live', 'polite');
+
+  frame.append(sheet, bar);
+  reader.append(frame, live);
+  document.body.append(reader);
 
   prevButton.addEventListener('click', () => step(-1));
   nextButton.addEventListener('click', () => step(1));
   closeButton.addEventListener('click', () => close());
 
-  // Esc: stop the browser's own close and zoom out instead, so the page can
-  // return to the same spot.
-  dialog.addEventListener('cancel', (event) => {
+  // Esc: stop the browser's own close and zoom out instead.
+  reader.addEventListener('cancel', (event) => {
     event.preventDefault();
     close();
   });
 
-  // Clicking the empty margin around the sheet closes the viewer.
-  dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) close();
+  // Clicking the margin around the frame closes the reader.
+  reader.addEventListener('click', (event) => {
+    if (event.target === reader) close();
   });
 
-  // If the browser closed the dialog by itself (for example, a second Esc),
-  // tidy up without an animation.
-  dialog.addEventListener('close', () => {
-    if (current === -1) return;
-    const src = ads[current];
-    dismiss();
-    src.querySelector('.ad-open').focus({ preventScroll: true });
-  });
-
-  // Arrow keys step between ads while the viewer is open.
   document.addEventListener('keydown', (event) => {
-    if (!dialog.open) return;
+    if (!reader.open) return;
+    if (event.key === 'Tab') {
+      trapFocus(event);
+      return;
+    }
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
@@ -116,184 +121,214 @@
     }
   });
 
-  /* ---------- Filling the viewer ---------- */
+  // Tab cycles only through the reader's three buttons.
+  function trapFocus(event) {
+    const items = [prevButton, closeButton, nextButton];
+    const i = items.indexOf(document.activeElement);
+    let target;
+    if (event.shiftKey) {
+      target = i <= 0 ? items[items.length - 1] : items[i - 1];
+    } else {
+      target = i === -1 || i === items.length - 1 ? items[0] : items[i + 1];
+    }
+    event.preventDefault();
+    target.focus();
+  }
 
-  // Copy one ad into the sheet, without ids and without the headline button.
-  function render(index) {
-    const clone = ads[index].cloneNode(true);
-    // The source may carry a transition name at this moment; the copy must not.
-    clone.style.viewTransitionName = '';
+  /* ---------- Filling the reader ---------- */
+
+  // Copy one story into the sheet, without ids and without the headline button.
+  function fill(index) {
+    const clone = stories[index].cloneNode(true);
     clone.removeAttribute('id');
     clone.removeAttribute('aria-labelledby');
-    clone.querySelectorAll('[id]').forEach((el) => el.removeAttribute('id'));
-    clone.querySelectorAll('[aria-labelledby]').forEach((el) =>
-      el.removeAttribute('aria-labelledby')
-    );
-    clone.querySelectorAll('.ad-open').forEach((button) => button.replaceWith(...button.childNodes));
-    clone.classList.remove('ad--lg', 'ad--md', 'ad--sm', 'ad--reserved', 'ad--halftone');
-    clone.classList.add('ad--zoomed');
+    clone.classList.remove('story--lead', 'story--md', 'story--sm', 'is-returning');
+    clone.classList.add('reader-story');
+    clone.querySelectorAll('.story-open').forEach((button) => button.replaceWith(...button.childNodes));
 
-    const title = clone.querySelector('h3');
-    title.id = 'ad-viewer-title';
+    const title = clone.querySelector('.story-title');
+    title.id = 'reader-title';
     title.tabIndex = -1;
 
     sheet.replaceChildren(clone);
-    updateNav(index);
+    sheet.scrollTop = 0;
+    prevButton.setAttribute('aria-disabled', String(index === 0));
+    nextButton.setAttribute('aria-disabled', String(index === stories.length - 1));
   }
 
-  function updateNav(index) {
-    prevButton.setAttribute('aria-disabled', String(index <= 0));
-    nextButton.setAttribute('aria-disabled', String(index >= ads.length - 1));
+  function readerTitle() {
+    return sheet.querySelector('#reader-title');
   }
 
-  function titleText(index) {
-    return ads[index].querySelector('h3').textContent.trim();
+  /* ---------- Page zoom ---------- */
+
+  // Put the page's zoom origin at the centre of a story, in page coordinates.
+  function setOrigin(story) {
+    const s = story.getBoundingClientRect();
+    const p = page.getBoundingClientRect();
+    page.style.transformOrigin = `${s.left - p.left + s.width / 2}px ${s.top - p.top + s.height / 2}px`;
   }
 
-  // Move to another ad inside the open viewer. Focus stays on the button pressed.
-  function go(index, direction) {
-    if (busy || index === current || index < 0 || index >= ads.length) return;
-    current = index;
-    history.replaceState(null, '', '#' + ads[index].id);
-    render(index);
-    live.textContent = titleText(index);
-
-    if (direction !== 0 && !reduceMotion() && sheet.animate) {
-      sheet.animate(
-        [
-          { opacity: 0, transform: `translateX(${direction * 1.5}rem)` },
-          { opacity: 1, transform: 'none' },
-        ],
-        { duration: 250, easing: 'ease-out' }
-      );
-    }
-  }
-
-  function step(delta) {
-    if (current === -1) return;
-    const target = current + delta;
-    if (target < 0 || target >= ads.length) return;
-    go(target, delta);
-  }
-
-  /* ---------- Zoom in and out ---------- */
-
-  // Run the change as a view transition when the browser has one and motion
-  // is allowed. Otherwise: a scale-in on open, a fade-out before close, and
-  // no motion at all for reduced motion.
-  function runChange(update, { animate, src, fromViewer }) {
-    const motion = animate && !reduceMotion();
-
-    if (motion && document.startViewTransition) {
-      busy = true;
-      if (src) src.style.viewTransitionName = 'ad-zoom';
-      if (fromViewer) sheet.style.viewTransitionName = 'ad-zoom';
-      const transition = document.startViewTransition(update);
-      const done = () => {
-        sheet.style.viewTransitionName = '';
-        ads.forEach((ad) => { ad.style.viewTransitionName = ''; });
-        busy = false;
-      };
-      transition.finished.then(done, done);
-      return;
-    }
-
-    if (!motion) {
-      update();
-      return;
-    }
-
-    if (fromViewer) {
-      busy = true;
-      const fade = sheet.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, easing: 'ease-in' });
-      const finish = () => {
-        update();
-        busy = false;
-      };
-      fade.finished.then(finish, finish);
-      return;
-    }
-
-    update();
-    sheet.animate(
+  function zoomIn(story, motion) {
+    // Reduced motion, or a deep link on load: the page stays put.
+    if (!motion) return;
+    setOrigin(story);
+    page.animate(
       [
-        { opacity: 0, transform: 'scale(0.96)' },
-        { opacity: 1, transform: 'none' },
+        { transform: 'scale(1)', filter: CLEAR },
+        { transform: `scale(${ZOOM})`, filter: BLUR },
       ],
-      { duration: 300, easing: 'ease-out' }
+      { duration: 340, easing: EASE_IN_OUT, fill: 'forwards' }
     );
   }
 
-  function open(index, { animate = true } = {}) {
-    if (busy || index < 0 || index >= ads.length) return;
-    const src = ads[index];
+  /* ---------- Open, step, close ---------- */
+
+  async function open(index, { animate = true } = {}) {
+    if (busy || current !== -1 || index < 0 || index >= stories.length) return;
+    busy = true;
+
+    const motion = animate && !reduceMotion();
+    const story = stories[index];
+    current = index;
+    origin = index;
 
     // Set the hash first: it does not scroll and does not fire hashchange.
-    history.replaceState(null, '', '#' + src.id);
+    history.replaceState(null, '', '#' + story.id);
+    fill(index);
+    live.textContent = '';
+    root.classList.add('reader-open');
+    frame.getAnimations().forEach((a) => a.cancel());
 
-    const update = () => {
-      current = index;
-      origin = index;
-      render(index);
-      live.textContent = '';
-      src.style.viewTransitionName = '';
-      sheet.style.viewTransitionName = 'ad-zoom';
-      root.classList.add('ad-zoomed');
-      if (!dialog.open) dialog.showModal();
-      sheet.querySelector('#ad-viewer-title').focus({ preventScroll: true });
-    };
+    zoomIn(story, motion);
+    if (motion) await pause(200);
 
-    runChange(update, { animate, src, fromViewer: false });
+    reader.showModal();
+    readerTitle().focus({ preventScroll: true });
+
+    if (motion) {
+      await settled(
+        frame.animate(
+          [
+            { opacity: 0, transform: 'scale(0.6) rotate(-1.2deg)' },
+            { opacity: 1, transform: 'scale(1.03) rotate(0.15deg)', offset: 0.7 },
+            { opacity: 1, transform: 'none' },
+          ],
+          { duration: 380, easing: EASE_OUT }
+        )
+      );
+    }
+    busy = false;
   }
 
-  function close({ animate = true } = {}) {
+  async function step(delta) {
+    const target = current + delta;
+    if (busy || current === -1 || target < 0 || target >= stories.length) return;
+    busy = true;
+
+    // The whole paper frame slides: out with a tilt, in with an overshoot and settle.
+    const motion = !reduceMotion();
+    if (motion) {
+      await settled(
+        frame.animate(
+          [
+            { opacity: 1, transform: 'none' },
+            { opacity: 0, transform: `translateX(${-delta * 55}%) rotate(${-delta * 2.5}deg)` },
+          ],
+          { duration: 200, easing: 'ease-in', fill: 'forwards' }
+        )
+      );
+    }
+
+    current = target;
+    fill(target);
+    history.replaceState(null, '', '#' + stories[target].id);
+    live.textContent = stories[target].querySelector('.story-title').textContent.trim();
+
+    if (motion) {
+      await settled(
+        frame.animate(
+          [
+            { opacity: 0, transform: `translateX(${delta * 55}%) rotate(${delta * 2.5}deg)` },
+            { opacity: 1, transform: `translateX(${-delta * 1.5}%) rotate(${-delta * 0.4}deg)`, offset: 0.72 },
+            { opacity: 1, transform: 'none' },
+          ],
+          { duration: 320, easing: EASE_OUT, fill: 'none' }
+        )
+      );
+    }
+    frame.getAnimations().forEach((a) => a.cancel());
+    busy = false;
+  }
+
+  async function close({ animate = true } = {}) {
     if (busy || current === -1) return;
-    const src = ads[current];
+    busy = true;
 
-    // Only scroll if the reader paged to a different ad. This runs before
-    // the transition takes its snapshot, while the viewer still covers the page.
-    if (current !== origin) src.scrollIntoView({ block: 'nearest' });
+    const motion = animate && !reduceMotion();
+    const story = stories[current];
 
-    const update = () => {
-      sheet.style.viewTransitionName = '';
-      src.style.viewTransitionName = 'ad-zoom';
-      dismiss();
-      src.querySelector('.ad-open').focus({ preventScroll: true });
-    };
+    if (motion) {
+      await settled(
+        frame.animate(
+          [
+            { opacity: 1, transform: 'none' },
+            { opacity: 0, transform: 'scale(0.92)' },
+          ],
+          { duration: 200, easing: 'ease-in', fill: 'forwards' }
+        )
+      );
+    }
 
-    // Only the viewer is named before the snapshot; the source gets its name
-    // inside update, so the new state is the one that carries it.
-    runChange(update, { animate, src: null, fromViewer: true });
-  }
+    reader.close();
 
-  // Shared cleanup for every way the viewer closes.
-  function dismiss() {
+    // Cancel the page zoom, bring the story shown into view, then zoom back
+    // out to it from the unzoomed layout.
+    page.getAnimations().forEach((a) => a.cancel());
+    page.style.transform = '';
+    page.style.filter = '';
+    if (current !== origin) story.scrollIntoView({ block: 'center' });
     current = -1;
-    if (dialog.open) dialog.close();
-    root.classList.remove('ad-zoomed');
     history.replaceState(null, '', location.pathname + location.search);
+
+    if (motion) {
+      setOrigin(story);
+      await settled(
+        page.animate(
+          [
+            { transform: `scale(${ZOOM})`, filter: BLUR },
+            { transform: 'scale(1)', filter: CLEAR },
+          ],
+          { duration: 360, easing: EASE_OUT }
+        )
+      );
+    }
+
+    page.style.transformOrigin = '';
+    root.classList.remove('reader-open');
+    story.classList.add('is-returning');
+    story.querySelector('.story-open').focus({ preventScroll: true });
+    busy = false;
   }
 
   /* ---------- Deep links ---------- */
 
   function indexFromHash() {
     const id = decodeURIComponent(location.hash.slice(1));
-    return ads.findIndex((ad) => ad.id === id);
+    return stories.findIndex((story) => story.id === id);
   }
 
   window.addEventListener('hashchange', () => {
     const index = indexFromHash();
-    if (index === -1) return;
-    if (dialog.open) {
-      go(index, index > current ? 1 : -1);
+    if (index === -1 || busy || index === current) return;
+    if (reader.open) {
+      current = index;
+      fill(index);
     } else {
       open(index);
     }
   });
 
   const initial = indexFromHash();
-  if (initial !== -1) {
-    ads[initial].scrollIntoView({ block: 'center' });
-    open(initial, { animate: false });
-  }
+  if (initial !== -1) open(initial, { animate: false });
 })();
