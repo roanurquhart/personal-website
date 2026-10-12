@@ -8,3 +8,7 @@ justfile
 .claude/
 
 .DS_Store
+
+# Factory run records (plans and write-ups)
+specs/
+app_docs/
